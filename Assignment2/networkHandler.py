@@ -38,7 +38,4 @@ class NetworkHandler (object):
 	# a dictionary in the same format as in assignment 1 that will be
 	# returned
 	def searchHandle(self, classid):
-
-
-
-#-----------------------------------------------------------------------
+		print "not done yet"

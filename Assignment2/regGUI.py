@@ -80,6 +80,10 @@ def runGUI(networkHandler):
 		for x in vals:
 			listbox.insert(END, x)
 
+	def listboxListener(event):
+		selection = scrollingListbox.curselection()
+		print 'Selected value is ', str(selection[0])
+
 	def genValues(n):
 		xyz = []
 		for x in range(0, n):
@@ -101,7 +105,12 @@ def runGUI(networkHandler):
 	scrollingListbox.grid(row = 0, column = 0, sticky = N+S+E+W)
 	scrollbarH.grid(row=1, column = 0, sticky = E+W)
 	scrollbarV.grid(row=0, column=1, sticky =N+S)
+
+	scrollingListbox.bind('<Double-ButtonRelease-1>', listboxListener)
+	scrollingListbox.bind('<Enter>', listboxListener)
+
 	listboxFrame.grid(row=1, column = 0, sticky = N+S+E+W)
+
 
 
 	# Handle events for entrys
@@ -115,8 +124,6 @@ def runGUI(networkHandler):
 		query = Query(dept, coursenum, area, title)
 
 		networkHandler.test(query)
-
-
 
 
 	# bind up our events
