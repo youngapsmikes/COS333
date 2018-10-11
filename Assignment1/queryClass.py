@@ -11,17 +11,23 @@ class Query (object):
 
 	def __init__(self, dept=None, coursenum=None, area=None,
 		title=None,	h=False):
-		self._dept = dept
-		self._coursenum = coursenum
-		self._area = area
-		self._title = title
-		self._dict = {}
-		self._dict['dept'] = dept
-		self._dict['coursenum'] = coursenum 
-		self._dict['area'] = area
-		self._dict['title'] = title
+	self._dept = dept
+	self._coursenum = coursenum
+	self._area = area
+	self._title = title
+	self._dict = {}
+	self._dict['dept'] = dept
+	self._dict['coursenum'] = coursenum 
+	self._dict['area'] = area
+	self._dict['title'] = title
 
-		self._h = h
+	self._h = h
+
+	def printOut(self):
+		print "Dept: ", self._dept
+		print "Coursenum: ", self._coursenum
+		print "Area: ", self._area
+		print "Title: ", self._title
 
 #-----------------------------------------------------------------------
 

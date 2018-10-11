@@ -107,7 +107,7 @@ def runGUI(networkHandler):
 	scrollbarV.grid(row=0, column=1, sticky =N+S)
 
 	scrollingListbox.bind('<Double-ButtonRelease-1>', listboxListener)
-	scrollingListbox.bind('<Enter>', listboxListener)
+	scrollingListbox.bind('<Return>', listboxListener)
 
 	listboxFrame.grid(row=1, column = 0, sticky = N+S+E+W)
 
