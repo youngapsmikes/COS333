@@ -11,7 +11,7 @@ from queryClass import Query
 # An object that will set up communication with a server at a specified
 # port
 
-class QueryHandler (object):
+class NetworkHandler (object):
 
 	def __init__(self, ip, port):
 		self._ip = ip
@@ -20,7 +20,10 @@ class QueryHandler (object):
 	def test(self, query):
 		query.printOut()
 
-	def handle(self, query):
+	# Take in a query object, and then communicate with the server at
+	# self._ip, self._port to pass along query object. Recieve from
+	# server a dictionary, return this dictionary.
+	def queryHandle(self, query):
 
 		try:
 			sock = socket(AF_INET, SOCK_STREAM)
@@ -29,6 +32,13 @@ class QueryHandler (object):
 			
 		except:
 			print "oh no"
+
+
+	# Take in class ID, communicate classid to server, and recieve
+	# a dictionary in the same format as in assignment 1 that will be
+	# returned
+	def searchHandle(self, classid):
+
 
 
 #-----------------------------------------------------------------------

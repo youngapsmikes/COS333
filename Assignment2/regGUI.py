@@ -7,8 +7,10 @@
 
 from Tkinter import Tk, Frame, Label, N, S, E, W, Entry
 from Tkinter import Listbox, Scrollbar, StringVar, END, HORIZONTAL, SINGLE
+from queryClass import Query
+from networkHandler import NetworkHandler
 
-def main():
+def runGUI(networkHandler):
 
 	root = Tk()
 	root.title('Reg')
@@ -50,13 +52,25 @@ def main():
 	deptEntry = Entry(labelFrame, width = 4)
 	coursenumEntry = Entry(labelFrame, width = 4)
 	areaEntry = Entry(labelFrame, width = 4)
-	titleEntry = Entry(labelFrame, width = 20)
+	titleEntry = Entry(labelFrame, width = 20)	
 
 	# pack em in
 	deptEntry.grid(row = 1, column = 0, sticky=W+E)
 	coursenumEntry.grid(row = 1, column = 1, sticky = W+E)
 	areaEntry.grid(row = 1, column = 2, sticky=W+E)
 	titleEntry.grid(row = 1, column = 3, sticky=E+W)
+
+	# Set up our string variables
+	deptString = StringVar()
+	coursenumString = StringVar()
+	areaString = StringVar()
+	titleString = StringVar()
+
+	# Attach the string variables
+	deptEntry['textvariable'] = deptString
+	coursenumEntry['textvariable'] = coursenumString
+	areaEntry['textvariable'] = areaString
+	titleEntry['textvariable'] = titleString
 
 	# add in our scrolling listbox
 
@@ -90,7 +104,26 @@ def main():
 	listboxFrame.grid(row=1, column = 0, sticky = N+S+E+W)
 
 
+	# Handle events for entrys
+	def entryListener(event):
+		dept = deptString.get()
+		coursenum = coursenumString.get()
+		area = areaString.get()
+		title = titleString.get()
 
+		# create a query
+		query = Query(dept, coursenum, area, title)
+
+		networkHandler.test(query)
+
+
+
+
+	# bind up our events
+	deptEntry.bind('<KeyRelease>', entryListener)
+	coursenumEntry.bind('<KeyRelease>', entryListener)
+	areaEntry.bind('<KeyRelease>', entryListener)
+	titleEntry.bind('<KeyRelease>', entryListener)
 
 	root.mainloop()
 

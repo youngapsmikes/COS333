@@ -6,7 +6,7 @@
 #-----------------------------------------------------------------------
 
 from sys import exit, argv, stdin
-from networkHandler import QueryHandler
+from networkHandler import NetworkHandler
 from regGUI import runGUI
 
 #-----------------------------------------------------------------------
@@ -20,10 +20,10 @@ def main(argv):
 	port = argv[2]
 
 	# Make a new queryHandler to process query requests
-	queryHandler = QueryHandler(host, port)
+	networkHandler = NetworkHandler(host, port)
 
 	# Get our GUI running
-	runGUI(queryHandler)
+	runGUI(networkHandler)
 
 #-----------------------------------------------------------------------
 
