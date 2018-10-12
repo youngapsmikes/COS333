@@ -82,7 +82,7 @@ def runGUI(networkHandler):
 
 	def listboxListener(event):
 		selection = scrollingListbox.curselection()
-		print 'Selected value is ', str(selection[0])
+		print 'Selected value is ' + str(selection[0])
 
 	def genValues(n):
 		xyz = []
@@ -95,7 +95,7 @@ def runGUI(networkHandler):
 	listboxFrame.grid_columnconfigure(1, weight =0)
 	listboxFrame.grid_rowconfigure(0, weight = 1)
 	listboxFrame.grid_rowconfigure(1, weight = 0)
-	scrollingListbox = Listbox(listboxFrame, selectmode=SINGLE)
+	scrollingListbox = Listbox(listboxFrame)
 	updateListBox(genValues(1000), scrollingListbox)
 	scrollbarV = Scrollbar(listboxFrame, command = scrollingListbox.yview)
 	scrollbarH = Scrollbar(listboxFrame, command = scrollingListbox.xview,
@@ -107,7 +107,7 @@ def runGUI(networkHandler):
 	scrollbarV.grid(row=0, column=1, sticky =N+S)
 
 	scrollingListbox.bind('<Double-ButtonRelease-1>', listboxListener)
-	scrollingListbox.bind('<Return>', listboxListener)
+	scrollingListbox.bind('<Key-Return>', listboxListener)
 
 	listboxFrame.grid(row=1, column = 0, sticky = N+S+E+W)
 
@@ -124,6 +124,7 @@ def runGUI(networkHandler):
 		query = Query(dept, coursenum, area, title)
 
 		networkHandler.test(query)
+
 
 
 	# bind up our events
