@@ -10,6 +10,7 @@ from socket import AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from pickle import dump
 from pickle import load
 from queryClass import Query
+from booleanClass import booleanClass
 
 #-----------------------------------------------------------------------
 # An object that will set up communication with a server at a specified
@@ -35,34 +36,58 @@ class NetworkHandler (object):
 			
 			# dumpy query object to regserver
 			outFlo = sock.makefile(mode = 'w')
-			queryClass = Query('cos', None , None, None, True)
-			dump(queryClass, outFlo)
+			dump([True], outFlo)
+			dump(query, outFlo)
 			outFlo.flush()
-
 			
+
 			# read in dictionary from regserver
 			inFlo = sock.makefile(mode = 'r')
-			dictionary = load(inFlo)
+			status = load(inFlo)
+			payload = load(inFlo)
 
 			sock.close()
-			return dictionary
+			return [status, payload]
 
-		except:
-			print "oh no"
+		except Exception, e:
+			print >>stderr, e
+
 	# Take in class ID, communicate classid to server, and recieve
 	# a dictionary in the same format as in assignment 1 that will be
 	# returned
-	#def searchHandle(self, classid):
+	def searchHandle(self, classid):
+		try:
+			sock = socket(AF_INET, SOCK_STREAM)
+			sock.connect((self._ip, self._port))
+			
+			# dumpy query object to regserver
+			outFlo = sock.makefile(mode = 'w')
+			dump([False], outFlo)
+			dump([classid], outFlo)
+			outFlo.flush()
+			
+			# read in dictionary from regserver
+			inFlo = sock.makefile(mode = 'r')
+			status = load(inFlo)
+			payload = load(inFlo)
 
+			sock.close()
+			return [status, payload]
+
+		except Exception, e:
+			print >>stderr, e
 
 def main(argv):
 
-    if len(argv) != 3:
-        print 'Usage: python %s host port' % argv[0]
-        exit(1)
-    nh = NetworkHandler(argv[1], argv[2])
-    q1 = nh.queryHandle("String")
-    print q1
+	query = Query('cos', None, None, None, True)
+	if len(argv) != 3:
+		print 'Usage: python %s host port' % argv[0]
+		exit(1)
+	nh = NetworkHandler(argv[1], argv[2])
+	result = nh.queryHandle(query)
+	print result 
+	result = nh.searchHandle(9032)
+	print result  
 
 if __name__ == '__main__':
 	main(argv)
