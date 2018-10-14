@@ -9,6 +9,7 @@ from Tkinter import Tk, Frame, Label, N, S, E, W, Entry
 from Tkinter import Listbox, Scrollbar, StringVar, END, HORIZONTAL, SINGLE
 from queryClass import Query
 from networkHandler import NetworkHandler
+from tkMessageBox import showerror, showinfo, ERROR, INFO
 
 def runGUI(networkHandler):
 
@@ -72,9 +73,45 @@ def runGUI(networkHandler):
 	areaEntry['textvariable'] = areaString
 	titleEntry['textvariable'] = titleString
 
+	# Helper function to construct an appropriate string out of
+	# our dictionary
+	def detailBuilder(dictionary):
+		finString = "Course ID: " + dictionary["courseid"][0] + "\n"
+		finString += "\n"
+		finString += "Days: " + dictionary["days"][0] + "\n"
+		finString += "Start time: " + dictionary["starttime"][0] + "\n"
+		finString += "End time: " + dictionary["endtime"][0] + "\n"
+		finString += "Building: " + dictionary["bldg"][0] + "\n"
+		finString += "Room: " + dictionary["roomnum"][0] + "\n"
+		finString += "\n"
+
+		for cur in dictionary["deptcoursenum"]:
+			finString += "Dept and Number: " + cur + "\n"
+
+		finString += "\n"
+
+		finString += "Area: " + dictionary["area"][0] + "\n"
+
+		finString += "\n"
+
+		finString += "Title: " + dictionary["title"][0] + "\n"
+
+		finString += "\n"
+
+		finString += "Description: " + dictionary["descrip"][0] + "\n"
+
+		finString += "\n"
+
+		finString += "Prerequisites: " + dictionary["prereqs"][0] + "\n"
+
+		finString += "\n"
+
+		for cur in dictionary["profname"]:
+			finString += "Professor: " + cur + "\n"
+
+		return finString
+
 	# add in our scrolling listbox
-
-
 	def updateListBox(vals, listbox):
 		listbox.delete(0, END)
 		for x in vals:
@@ -82,7 +119,20 @@ def runGUI(networkHandler):
 
 	def listboxListener(event):
 		selection = scrollingListbox.curselection()
-		print 'Selected value is ' + str(selection[0])
+
+		selected = selection[0]
+
+		classid = int(selected[0:4])
+
+		try:
+			returndict = networkHandler.searchHandle(classid)
+			title = returndict["title"][0]
+		except Exception, e:
+			showerror(title='Reg Error', message= e, icon=ERROR)
+			return
+
+		details = detailBuilder(returndict)
+		showinfo(title=title, detail = details, icon=INFO)
 
 	def genValues(n):
 		xyz = []
@@ -96,7 +146,6 @@ def runGUI(networkHandler):
 	listboxFrame.grid_rowconfigure(0, weight = 1)
 	listboxFrame.grid_rowconfigure(1, weight = 0)
 	scrollingListbox = Listbox(listboxFrame)
-	updateListBox(genValues(1000), scrollingListbox)
 	scrollbarV = Scrollbar(listboxFrame, command = scrollingListbox.yview)
 	scrollbarH = Scrollbar(listboxFrame, command = scrollingListbox.xview,
 		orient = HORIZONTAL)
@@ -106,11 +155,30 @@ def runGUI(networkHandler):
 	scrollbarH.grid(row=1, column = 0, sticky = E+W)
 	scrollbarV.grid(row=0, column=1, sticky =N+S)
 
+	updateListBox(genValues(1000))
+
 	scrollingListbox.bind('<Double-ButtonRelease-1>', listboxListener)
 	scrollingListbox.bind('<Key-Return>', listboxListener)
 
 	listboxFrame.grid(row=1, column = 0, sticky = N+S+E+W)
 
+
+	# Handle generating each entry row:
+	# NOTE: B/c our printng out function adds to the end first, we
+	# build up our list backwards
+	def listGenerator(d):
+		formatted = []
+
+		max_len = len(d[d.keys()[0]])
+
+		for i in range(0, max_len):
+
+			formatstr = "{0:<4s}|{1:>4s}|{2:>9s}|{3:^4s}|{4:<s}"
+
+			temp = formatstr.format(d["classid"][i], d["dept"][i], 
+			d["coursenum"][i], d["area"][i], d["title"][i])
+
+			formatted.insert(0, temp)
 
 
 	# Handle events for entrys
@@ -123,7 +191,15 @@ def runGUI(networkHandler):
 		# create a query
 		query = Query(dept, coursenum, area, title)
 
-		networkHandler.test(query)
+		try:
+			returndict = networkHandler.queryHandle(query)
+		except Exception, e:
+			showerror(title='Error', message= e, icon=ERROR)
+			return
+
+		formatted = listGenerator(returndict)
+
+		updateListBox(formatted, scrollingListbox)
 
 
 
