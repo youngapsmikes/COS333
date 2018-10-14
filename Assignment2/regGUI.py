@@ -123,10 +123,7 @@ def runGUI(networkHandler):
 
 		selected = scrollingListbox.get(selection[0])
 
-		print selected
-
 		classid = int(re.search(r'\d+', selected).group())
-		print classid
 
 		try:
 			returndict = networkHandler.searchHandle(classid)
@@ -143,7 +140,7 @@ def runGUI(networkHandler):
 	listboxFrame.grid_columnconfigure(1, weight =0)
 	listboxFrame.grid_rowconfigure(0, weight = 1)
 	listboxFrame.grid_rowconfigure(1, weight = 0)
-	scrollingListbox = Listbox(listboxFrame)
+	scrollingListbox = Listbox(listboxFrame, font = 'TkFixedFont')
 	scrollbarV = Scrollbar(listboxFrame, command = scrollingListbox.yview)
 	scrollbarH = Scrollbar(listboxFrame, command = scrollingListbox.xview,
 		orient = HORIZONTAL)
@@ -169,12 +166,12 @@ def runGUI(networkHandler):
 
 		for i in range(0, max_len):
 
-			formatstr = "{0:12} \t {1:6} \t {2:5} \t {3:4} \t {4:}"
+			formatstr = "{0:6} \t {1:5} \t {2:5} \t {3:4} \t {4:}"
 
 			temp = formatstr.format(d["classid"][i], d["dept"][i], 
 			d["coursenum"][i], d["area"][i], d["title"][i])
 
-			formatted.insert(0, temp)
+			formatted.append(temp)
 
 		return formatted
 
@@ -188,6 +185,9 @@ def runGUI(networkHandler):
 
 		# create a query
 		query = Query(dept, coursenum, area, title)
+
+		# clear out our listbox
+		scrollingListbox.delete(0, END)
 
 		try:
 			returndict = networkHandler.queryHandle(query)

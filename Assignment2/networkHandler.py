@@ -28,8 +28,7 @@ class NetworkHandler (object):
 	# self._ip, self._port to pass along query object. Recieve from
 	# server a dictionary, return this dictionary.
 	def queryHandle(self, query):
-
-<<<<<<< Updated upstream
+		
 		sock = socket(AF_INET, SOCK_STREAM)
 		sock.connect((self._ip, self._port))
 		
