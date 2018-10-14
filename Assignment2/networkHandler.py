@@ -10,7 +10,6 @@ from socket import AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from pickle import dump
 from pickle import load
 from queryClass import Query
-from booleanClass import booleanClass
 
 #-----------------------------------------------------------------------
 # An object that will set up communication with a server at a specified
