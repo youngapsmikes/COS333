@@ -10,6 +10,7 @@ from Tkinter import Listbox, Scrollbar, StringVar, END, HORIZONTAL, SINGLE
 from queryClass import Query
 from networkHandler import NetworkHandler
 from tkMessageBox import showerror, showinfo, ERROR, INFO
+import re
 
 def runGUI(networkHandler):
 
@@ -120,9 +121,12 @@ def runGUI(networkHandler):
 	def listboxListener(event):
 		selection = scrollingListbox.curselection()
 
-		selected = selection[0]
+		selected = scrollingListbox.get(selection[0])
 
-		classid = int(selected[0:4])
+		print selected
+
+		classid = int(re.search(r'\d+', selected).group())
+		print classid
 
 		try:
 			returndict = networkHandler.searchHandle(classid)
@@ -133,12 +137,6 @@ def runGUI(networkHandler):
 
 		details = detailBuilder(returndict)
 		showinfo(title=title, detail = details, icon=INFO)
-
-	def genValues(n):
-		xyz = []
-		for x in range(0, n):
-			xyz.append(x)
-		return xyz
 
 	listboxFrame = Frame(root)
 	listboxFrame.grid_columnconfigure(0, weight = 1)
@@ -154,8 +152,6 @@ def runGUI(networkHandler):
 	scrollingListbox.grid(row = 0, column = 0, sticky = N+S+E+W)
 	scrollbarH.grid(row=1, column = 0, sticky = E+W)
 	scrollbarV.grid(row=0, column=1, sticky =N+S)
-
-	updateListBox(genValues(1000))
 
 	scrollingListbox.bind('<Double-ButtonRelease-1>', listboxListener)
 	scrollingListbox.bind('<Key-Return>', listboxListener)
@@ -173,12 +169,14 @@ def runGUI(networkHandler):
 
 		for i in range(0, max_len):
 
-			formatstr = "{0:<4s}|{1:>4s}|{2:>9s}|{3:^4s}|{4:<s}"
+			formatstr = "{0:12} \t {1:6} \t {2:5} \t {3:4} \t {4:}"
 
 			temp = formatstr.format(d["classid"][i], d["dept"][i], 
 			d["coursenum"][i], d["area"][i], d["title"][i])
 
 			formatted.insert(0, temp)
+
+		return formatted
 
 
 	# Handle events for entrys

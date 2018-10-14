@@ -29,6 +29,7 @@ class NetworkHandler (object):
 	# server a dictionary, return this dictionary.
 	def queryHandle(self, query):
 
+<<<<<<< Updated upstream
 		sock = socket(AF_INET, SOCK_STREAM)
 		sock.connect((self._ip, self._port))
 		
@@ -76,8 +77,7 @@ class NetworkHandler (object):
 			raise payload 
 			return 
 		else:
-			return payload 
-			
+			return payload
 
 def main(argv):
 
