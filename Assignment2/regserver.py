@@ -12,7 +12,6 @@ from pickle import dump
 from pickle import load
 from threading import Thread 
 
-sys.path.append('C:\\COS333\\Assignment1\\')
 from queryClass import Query
 from SQLExecutor import executeSearch
 from SQLExecutor import executeSearchClass

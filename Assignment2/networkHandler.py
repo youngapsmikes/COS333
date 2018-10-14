@@ -29,52 +29,55 @@ class NetworkHandler (object):
 	# server a dictionary, return this dictionary.
 	def queryHandle(self, query):
 
-		try:
-			sock = socket(AF_INET, SOCK_STREAM)
-			sock.connect((self._ip, self._port))
-			
-			# dumpy query object to regserver
-			outFlo = sock.makefile(mode = 'w')
-			dump([True], outFlo)
-			dump(query, outFlo)
-			outFlo.flush()
-			
+		sock = socket(AF_INET, SOCK_STREAM)
+		sock.connect((self._ip, self._port))
+		
+		# dumpy query object to regserver
+		outFlo = sock.makefile(mode = 'w')
+		dump([True], outFlo)
+		dump(query, outFlo)
+		outFlo.flush()
+		
 
-			# read in dictionary from regserver
-			inFlo = sock.makefile(mode = 'r')
-			status = load(inFlo)
-			payload = load(inFlo)
+		# read in dictionary from regserver
+		inFlo = sock.makefile(mode = 'r')
+		status = load(inFlo)
+		payload = load(inFlo)
 
-			sock.close()
-			return [status, payload]
+		sock.close()
 
-		except Exception, e:
-			print >>stderr, e
+		if not status:
+			raise payload
+			return
+		else:
+			return payload 
 
 	# Take in class ID, communicate classid to server, and recieve
 	# a dictionary in the same format as in assignment 1 that will be
 	# returned
 	def searchHandle(self, classid):
-		try:
-			sock = socket(AF_INET, SOCK_STREAM)
-			sock.connect((self._ip, self._port))
-			
-			# dumpy query object to regserver
-			outFlo = sock.makefile(mode = 'w')
-			dump([False], outFlo)
-			dump([classid], outFlo)
-			outFlo.flush()
-			
-			# read in dictionary from regserver
-			inFlo = sock.makefile(mode = 'r')
-			status = load(inFlo)
-			payload = load(inFlo)
+		sock = socket(AF_INET, SOCK_STREAM)
+		sock.connect((self._ip, self._port))
+		
+		# dumpy query object to regserver
+		outFlo = sock.makefile(mode = 'w')
+		dump([False], outFlo)
+		dump([classid], outFlo)
+		outFlo.flush()
+		
+		# read in dictionary from regserver
+		inFlo = sock.makefile(mode = 'r')
+		status = load(inFlo)
+		payload = load(inFlo)
 
-			sock.close()
-			return [status, payload]
+		sock.close()
 
-		except Exception, e:
-			print >>stderr, e
+		if not status: 
+			raise payload 
+			return 
+		else:
+			return payload 
+			
 
 def main(argv):
 
