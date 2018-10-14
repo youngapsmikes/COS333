@@ -15,6 +15,7 @@ from threading import Thread
 sys.path.append('C:\\COS333\\Assignment1\\')
 from queryClass import Query
 from SQLExecutor import executeSearch
+from SQLExecutor import executeSearchClass
 
 class ServerThread (Thread):
 
@@ -24,31 +25,46 @@ class ServerThread (Thread):
         self._clientAddr = clientAddr
         
     def run(self):
-        print 'Spawned thread for ' + str(self._clientAddr)
-        
-        inFlo = self._sock.makefile(mode='r')
-        queryClass = load(inFlo)
-        
-        found = executeSearch(queryClass)
+        try:
+            print 'Spawned thread for ' + str(self._clientAddr)
+            
+            inFlo = self._sock.makefile(mode='r')
 
-        outFlo = self._sock.makefile(mode = 'w')
-        dump(found, outFlo)
-        outFlo.flush()
+            isQuery = load(inFlo)
 
-        self._sock.close()
-        print 'Closed socket for ' + str(self._clientAddr)
-        print 'Exited thread for ' + str(self._clientAddr)
+            if isQuery[0] == True:
+                queryClass = load(inFlo)
+                found = executeSearch(queryClass)
+            else: 
+                classid = load(inFlo)
+                found = executeSearchClass(classid[0])
 
-def handleClient(sock, clientAddr): 
+            outFlo = self._sock.makefile(mode = 'w')
+            dump(True, outFlo)
+            dump(found, outFlo)
+            outFlo.flush()
 
-    inFlo = sock.makefile(mode = 'r')
-    queryClass = load(inFlo)
+            self._sock.close()
+            print 'Closed socket for ' + str(self._clientAddr)
+            print 'Exited thread for ' + str(self._clientAddr)
+        except Exception, e:
+            outFlo = self._sock.makefile(mode = 'w')
+            dump(False, outFlo)
+            dump(e, outFlo)
+            outFlo.flush()
+            self._sock.close()
+            print 'Closed socket for ' + str(self._clientAddr)
+            print 'Exited thread for ' + str(self._clientAddr)
+# def handleClient(sock, clientAddr): 
 
-    outFlo = sock.makefile(mode = 'w')
-    dump(queryClass._dict, outFlo)
-    outFlo.flush()
+#     inFlo = sock.makefile(mode = 'r')
+#     queryClass = load(inFlo)
 
-    print 'Wrote query to' + str(clientAddr)
+#     outFlo = sock.makefile(mode = 'w')
+#     dump(queryClass._dict, outFlo)
+#     outFlo.flush()
+
+#     print 'Wrote query to' + str(clientAddr)
 
 #-----------------------------------------------------------------------
 def main(argv):
@@ -76,38 +92,10 @@ def main(argv):
             print 'Opened socket for ' + str(clientAddr)
             serverThread = ServerThread(sock, clientAddr);
             serverThread.start();
-
-    except:
-        print "Oh no"
-# def _test(argv):
-
-#     BACKLOG = 5
-
-#     if len(argv) != 2:
-#         print 'Usage: python %s port' % argv[0]
-#         exit(1)
-
-#     try:
-#         port = int(argv[1])
-
-#         serverSock = socket(AF_INET, SOCK_STREAM)
-#         print 'Opened server socket'
-#         serverSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-#         serverSock.bind(('', port))
-#         print 'Bound server socket to port'
-#         serverSock.listen(BACKLOG)
-#         print 'Listening'
-
-#         while True:
-#             sock, clientAddr = serverSock.accept()
-#             print 'Accepted connection for ' + str(clientAddr)
-#             print 'Opened socket for ' + str(clientAddr)
-#             handleClient(sock, clientAddr)
-#             sock.close()
-#             print 'Closed socket for ' + str(clientAddr)
             
-#     except Exception, e:
-#         print >>stderr, e
+    except Exception, e:
+        print >>stderr, 'regserver:',
+        print >>stderr, e
 
 if __name__ == '__main__':
 	main(argv)
