@@ -215,17 +215,21 @@ def runGUI(networkHandler):
 	areaEntry.bind('<KeyRelease>', entryListener)
 	titleEntry.bind('<KeyRelease>', entryListener)
 
-	# Fill in the box initially
-	query = Query("","","","")
+	def startup:
+		# Fill in the box initially
+		query = Query("","","","")
 
-	try:
-		returndict = networkHandler.queryHandle(query)
-	except Exception, e:
-		showerror(title='Error', message= e, icon=ERROR)
+		try:
+			returndict = networkHandler.queryHandle(query)
+		except Exception, e:
+			showerror(title='Error', message= e, icon=ERROR)
+			return
 
-	formatted = listGenerator(returndict)
+		formatted = listGenerator(returndict)
 
-	updateListBox(formatted, scrollingListbox)
+		updateListBox(formatted, scrollingListbox)
+
+	startup()
 
 	root.mainloop()
 
