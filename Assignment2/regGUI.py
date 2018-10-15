@@ -120,6 +120,9 @@ def runGUI(networkHandler):
 
 	# Handle getting focus in
 	def handle_focus(event):
+		selection = scrollingListbox.curselection()
+		if selection:
+			return
 		scrollingListbox.selection_set(0)
 
 	def listboxListener(event):
@@ -175,7 +178,7 @@ def runGUI(networkHandler):
 
 		for i in range(0, max_len):
 
-			formatstr = "{0:6} \t {1:5} \t {2:5} \t {3:4} \t {4:}"
+			formatstr = "{0:6}   {1:5}   {2:5}   {3:4}   {4:}"
 
 			temp = formatstr.format(d["classid"][i], d["dept"][i], 
 			d["coursenum"][i], d["area"][i], d["title"][i])
@@ -211,6 +214,19 @@ def runGUI(networkHandler):
 	coursenumEntry.bind('<KeyRelease>', entryListener)
 	areaEntry.bind('<KeyRelease>', entryListener)
 	titleEntry.bind('<KeyRelease>', entryListener)
+
+	# Fill in the box initially
+	query = Query("","","","")
+
+	try:
+		returndict = networkHandler.queryHandle(query)
+	except Exception, e:
+		showerror(title='Error', message= e, icon=ERROR)
+		return
+
+	formatted = listGenerator(returndict)
+
+	updateListBox(formatted, scrollingListbox)
 
 	root.mainloop()
 
