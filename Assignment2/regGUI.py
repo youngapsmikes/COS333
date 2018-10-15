@@ -222,7 +222,6 @@ def runGUI(networkHandler):
 		returndict = networkHandler.queryHandle(query)
 	except Exception, e:
 		showerror(title='Error', message= e, icon=ERROR)
-		return
 
 	formatted = listGenerator(returndict)
 
