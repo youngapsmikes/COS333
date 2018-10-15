@@ -118,10 +118,18 @@ def runGUI(networkHandler):
 		for x in vals:
 			listbox.insert(END, x)
 
+	# Handle getting focus in
+	def handle_focus(event):
+		scrollingListbox.selection_set(0)
+
 	def listboxListener(event):
 		selection = scrollingListbox.curselection()
 
-		selected = scrollingListbox.get(selection[0])
+		try:
+			selected = scrollingListbox.get(selection[0])
+		except IndexError:
+			# This will only happen if the list box is empty
+			return
 
 		classid = int(re.search(r'\d+', selected).group())
 
@@ -152,6 +160,7 @@ def runGUI(networkHandler):
 
 	scrollingListbox.bind('<Double-ButtonRelease-1>', listboxListener)
 	scrollingListbox.bind('<Key-Return>', listboxListener)
+	scrollingListbox.bind('<FocusIn>', handle_focus)
 
 	listboxFrame.grid(row=1, column = 0, sticky = N+S+E+W)
 
@@ -186,9 +195,6 @@ def runGUI(networkHandler):
 		# create a query
 		query = Query(dept, coursenum, area, title)
 
-		# clear out our listbox
-		scrollingListbox.delete(0, END)
-
 		try:
 			returndict = networkHandler.queryHandle(query)
 		except Exception, e:
@@ -198,7 +204,6 @@ def runGUI(networkHandler):
 		formatted = listGenerator(returndict)
 
 		updateListBox(formatted, scrollingListbox)
-
 
 
 	# bind up our events
