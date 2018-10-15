@@ -47,6 +47,7 @@ class ServerThread (Thread):
             print 'Closed socket for ' + str(self._clientAddr)
             print 'Exited thread for ' + str(self._clientAddr)
         except Exception, e:
+            print >> stderr, e
             outFlo = self._sock.makefile(mode = 'w')
             dump(False, outFlo)
             dump(e, outFlo)
@@ -93,7 +94,6 @@ def main(argv):
             serverThread.start();
             
     except Exception, e:
-        print >>stderr, 'regserver:',
         print >>stderr, e
 
 if __name__ == '__main__':
