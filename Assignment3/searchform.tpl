@@ -7,7 +7,7 @@
 		% include('header.tpl')
 		<h2>Class Search</h2>
 		<hr>
-		<form action="searchresults" method="get">
+		<form action="search" method="get">
 			<table>
 				<tr>
 					<td align="left">Dept: </td>
