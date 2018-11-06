@@ -6,8 +6,9 @@
 	<body>
 		% include('header.tpl')
 		<hr>
-		<h2><strong>Class Details (class id {{classid}})</strong><h2>
+		<h2><strong>Class Details (class id {{classid}})</strong></h2>
 		<br>
+
 		<strong>Course Id: </strong> {{d["courseid"][0]}} <br>
 		<strong>Days: </strong> {{d["days"][0]}} <br>
 		<strong>Start time: </strong> {{d["starttime"][0]}} <br>
@@ -16,8 +17,11 @@
 		<strong>Room:  </strong> {{d["roomnum"][0]}} <br>
 
 		<hr>
+
 		<br>
+
 		<h2><strong>Course Details (course id {{d["courseid"][0]}})</strong></h2>
+
 		<br>
 		% for cur in d["deptcoursenum"]:
 			<strong>Dept and Number: </strong> {{cur}} <br>
