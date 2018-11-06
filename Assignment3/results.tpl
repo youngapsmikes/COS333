@@ -6,28 +6,28 @@
 	<body>
 		% include('header.tpl')
 		<hr>
-		<h2><em>Class Details (class id {{classid}})</em><h2>
+		<h2><strong>Class Details (class id {{classid}})</strong><h2>
 		<br>
-		<em>Course Id: </em> {{d["courseid"][0]}} <br>
-		<em>Days: </em> {{d["days"][0]}} <br>
-		<em>Start time: </em> {{d["starttime"][0]}} <br>
-		<em>End time: </em> {{d["endtime"][0]}} <br>
-		<em>Building: </em> {{d["bldg"][0]}} <br>
-		<em>Room:  </em> {{d["roomnum"][0]}} <br>
+		<strong>Course Id: </strong> {{d["courseid"][0]}} <br>
+		<strong>Days: </strong> {{d["days"][0]}} <br>
+		<strong>Start time: </strong> {{d["starttime"][0]}} <br>
+		<strong>End time: </strong> {{d["endtime"][0]}} <br>
+		<strong>Building: </strong> {{d["bldg"][0]}} <br>
+		<strong>Room:  </strong> {{d["roomnum"][0]}} <br>
 
 		<hr>
 		<br>
-		<h2><em>Course Details (course id {{d["courseid"][0]}})</em></h2>
+		<h2><strong>Course Details (course id {{d["courseid"][0]}})</strong></h2>
 		<br>
 		% for cur in d["deptcoursenum"]:
-			<em>Dept and Number: </em> {{cur}} <br>
+			<strong>Dept and Number: </strong> {{cur}} <br>
 		% end
-		<em>Area: </em> {{d["area"][0]}} <br>
-		<em>Title: </em> {{d["title"][0]}} <br>
-		<em>Description: </em> {{d["descrip"][0]}} <br>
-		<em>Prerequisites: </em> {{d["prereqs"][0]}}<br>
+		<strong>Area: </strong> {{d["area"][0]}} <br>
+		<strong>Title: </strong> {{d["title"][0]}} <br>
+		<strong>Description: </strong> {{d["descrip"][0]}} <br>
+		<strong>Prerequisites: </strong> {{d["prereqs"][0]}}<br>
 		% for cur in d["profname"]:
-			<em>Professor(s): </em> {{cur}} <br>
+			<strong>Professor(s): </strong> {{cur}} <br>
 		% end
 
 		<hr>
