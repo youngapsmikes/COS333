@@ -8,12 +8,12 @@
 		<hr>
 		<h2><b>Class Details (class id {{classid}})</b><h2>
 		<br>
-		<b>Course Id: </b> {{d["courseid"][0]}} 
-		<b>Days: </b> {{d["days"][0]}}
-		<b>Start time: </b> {{d["starttime"][0]}}
-		<b>End time: </b> {{d["endtime"][0]}}
-		<b>Building </b> {{d["bldg"][0]}}
-		<b>Room </b> {{d["roomnum"][0]}}
+		<b>Course Id: </b> {{d["courseid"][0]}} <br>
+		<b>Days: </b> {{d["days"][0]}} <br>
+		<b>Start time: </b> {{d["starttime"][0]}} <br>
+		<b>End time: </b> {{d["endtime"][0]}} <br>
+		<b>Building </b> {{d["bldg"][0]}} <br>
+		<b>Room </b> {{d["roomnum"][0]}} <br>
 
 		<hr>
 		<br>
@@ -22,12 +22,12 @@
 		% for cur in d["deptcoursenum"]:
 			<b>Dept and Number: </b> {{cur}}
 		% end
-		<b>Area: </b> {{d["area"][0]}}
-		<b>Title: </b> {{d["title"][0]}}
-		<b>Description: </b> <p> {{d["descrip"][0]}} </p>
-		<b>Prerequisites: </b> <p> {{d["prereqs"][0]}} </p>
+		<b>Area: </b> {{d["area"][0]}} <br>
+		<b>Title: </b> {{d["title"][0]}} <br>
+		<b>Description: </b> <p> {{d["descrip"][0]}} </p> <br>
+		<b>Prerequisites: </b> <p> {{d["prereqs"][0]}} </p> <br>
 		% for cur in d["profname"]:
-			<b>Professor(s): </b> {{cur}}
+			<b>Professor(s): </b> {{cur}} <br>
 		% end
 
 		<hr>
