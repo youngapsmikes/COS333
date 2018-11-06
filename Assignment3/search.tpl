@@ -11,19 +11,19 @@
       <table>
         <tr>
           <td align="left">Dept: </td>
-          <td align="left"><input type="text" name="dept" value = {{"Fuck"}} ></td>
+          <td align="left"><input type="text" name="dept" value = "{{dept}}"></td>
         </tr>
         <tr>
           <td align="left">Course Num: </td>
-          <td align="left"><input type="text" name="coursenum" ></td>
+          <td align="left"><input type="text" name="coursenum" value = "{{coursenum}}" ></td>
         </tr>
         <tr>
           <td align="left">Area:</td>
-          <td align="left"><input type="text" name="area" ></td>
+          <td align="left"><input type="text" name="area" value = "{{area}}" ></td>
         </tr>
         <tr>
           <td align="left">Title: </td>
-          <td align="left"><input type="text" name="title"></td>
+          <td align="left"><input type="text" name="title" value = "{{title}}"></td>
         </tr>
         <tr>
           <td align="left"> </td>
