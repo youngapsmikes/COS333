@@ -12,20 +12,20 @@
 		<b>Days: </b> {{d["days"][0]}} <br>
 		<b>Start time: </b> {{d["starttime"][0]}} <br>
 		<b>End time: </b> {{d["endtime"][0]}} <br>
-		<b>Building </b> {{d["bldg"][0]}} <br>
-		<b>Room </b> {{d["roomnum"][0]}} <br>
+		<b>Building: </b> {{d["bldg"][0]}} <br>
+		<b>Room:  </b> {{d["roomnum"][0]}} <br>
 
 		<hr>
 		<br>
 		<h2><b>Course Details (course id {{d["courseid"][0]}})</b></h2>
 		<br>
 		% for cur in d["deptcoursenum"]:
-			<b>Dept and Number: </b> {{cur}}
+			<b>Dept and Number: </b> {{cur}} <br>
 		% end
 		<b>Area: </b> {{d["area"][0]}} <br>
 		<b>Title: </b> {{d["title"][0]}} <br>
-		<b>Description: </b> <p> {{d["descrip"][0]}} </p> <br>
-		<b>Prerequisites: </b> <p> {{d["prereqs"][0]}} </p> <br>
+		<b>Description: </b> {{d["descrip"][0]}} <br>
+		<b>Prerequisites: </b> {{d["prereqs"][0]}}<br>
 		% for cur in d["profname"]:
 			<b>Professor(s): </b> {{cur}} <br>
 		% end
