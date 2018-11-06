@@ -14,9 +14,6 @@ def preprocessKey(key):
     return key 
 
 @route('/')
-@route('/index')
-@route('/search')
-
 @route('/search')
 def search():
     dept = preprocessKey(request.query.get('dept'))

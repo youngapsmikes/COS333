@@ -6,7 +6,7 @@
 	<body>
 		% include('header.tpl')
 		<hr>
-		<h2><b>Class Details (class id {{HOW TO GET CLASS ID???}})</b><h2>
+		<h2><b>Class Details (class id {{classid}})</b><h2>
 		<br>
 		<b>Course Id: </b> {{d["courseid"][0]}} 
 		<b>Days: </b> {{d["days"][0]}}
@@ -32,8 +32,7 @@
 
 		<hr>
 		<br>
-
-		Click here to do <a href="IDK WHAT URL TO DO HERE PLZ HELP">another class search</a>
+		Click here to do <a href="/search">another class search</a>
 
 
 
