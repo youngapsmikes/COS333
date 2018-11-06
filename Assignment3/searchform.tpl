@@ -42,16 +42,16 @@
 				<td align="left"><b>Title</b></td>
 			</tr>
 
-			% if len(classes) == 0:
+			% if len(d) == 0:
 				(none)
 			% else:
-			%	for class in classes:
+			%	for i in range(0,len(d[d.keys()[0])):
 					<tr>
-						<td align="left">{{class.getID()}}</td>
-						<td align="left">{{class.getDept()}}</td>
-						<td align="left">{{class.getNum()}}</td>
-						<td align="left">{{class.getArea()}}</td>
-						<td align="left">{{class.getTitle()}}</td>
+						<td align="left">{{d["classid"][i]}}</td>
+						<td align="left">{{d["dept"][i]}}</td>
+						<td align="left">{{d["coursenum"][i]}}</td>
+						<td align="left">{{d["area"][i]}}</td>
+						<td align="left">{{d["title"][i]}}</td>
 					</tr>
 			%  end
 			% end

@@ -6,25 +6,29 @@
 	<body>
 		% include('header.tpl')
 		<hr>
-		<h2><b>Class Details (class id {{result.getclassID()}})</b><h2>
+		<h2><b>Class Details (class id {{HOW TO GET CLASS ID???}})</b><h2>
 		<br>
-		<b>Course Id: </b> {{result.getcourseID()}} 
-		<b>Days: </b> {{result.getDays()}}
-		<b>Start time: </b> {{result.getStart()}}
-		<b>End time: </b> {{result.getEnd()}}
-		<b>Building </b> {{result.getBuilding()}}
-		<b>Room </b> {{result.getRoom()}}
+		<b>Course Id: </b> {{d["courseid"][0]}} 
+		<b>Days: </b> {{d["days"][0]}}
+		<b>Start time: </b> {{d["starttime"][0]}}
+		<b>End time: </b> {{d["endtime"][0]}}
+		<b>Building </b> {{d["bldg"][0]}}
+		<b>Room </b> {{d["roomnum"][0]}}
 
 		<hr>
 		<br>
-		<h2><b>Course Details (course id {{result.getcourseID()}})</b></h2>
+		<h2><b>Course Details (course id {{d["courseid"][0]}})</b></h2>
 		<br>
-		<b>Dept and Number: </b> % NEED TO FIGURE OUT HOW TO DO THESE PROBABLY A LOOP
-		<b>Area: </b> {{result.getArea()}}
-		<b>Title: </b> {{result.getTitle()}}
-		<b>Description: </b> {{result.getDescription()}}
-		<b>Prerequisites: </b> {{result.getPreReq()}}
-		<b>Professor(s): </b> % NEED TO FIGURE OUT HOW TO GET THESE
+		% for cur in d["deptcoursenum"]:
+			<b>Dept and Number: </b> {{cur}}
+		% end
+		<b>Area: </b> {{d["area"][0]}}
+		<b>Title: </b> {{d["title"][0]}}
+		<b>Description: </b> <p> {{d["descrip"][0]}} </p>
+		<b>Prerequisites: </b> <p> {{d["prereqs"][0]}} </p>
+		% for cur in d["profname"]:
+			<b>Professor(s): </b> {{cur}}
+		% end
 
 		<hr>
 		<br>
