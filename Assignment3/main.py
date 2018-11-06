@@ -40,6 +40,11 @@ def search():
         'd': results}
     return template('search.tpl', templateInfo)
 
+@route('/results/<classid>')
+# pass  me classid labeled as such, searchClass has a dictionary
+
+def results(classid):
+
 if __name__ == '__main__':
     if len(argv) != 2:
         print 'Usage: ' + argv[0] + ' port'
