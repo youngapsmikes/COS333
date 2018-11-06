@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -32,35 +34,11 @@
 			</table>
 		</form>
 		<hr>
-
-		<table>
-			<tr>
-				<td align="left"><b>ClassID</b></td>
-				<td align="left"><b>Dept</b></td>
-				<td align="left"><b>Num</b></td>
-				<td align="left"><b>Area</b></td>
-				<td align="left"><b>Title</b></td>
-			</tr>
-
-			% if len(d) == 0:
-				(none)
-			% else:
-			%	for i in range(0,len(d[d.keys()[0])):
-					<tr>
-						<td align="left">{{d["classid"][i]}}</td>
-						<td align="left">{{d["dept"][i]}}</td>
-						<td align="left">{{d["coursenum"][i]}}</td>
-						<td align="left">{{d["area"][i]}}</td>
-						<td align="left">{{d["title"][i]}}</td>
-					</tr>
-			%  end
-			% end
-
-		</table>
-
-
-
+		<br> 
+    <br>
 		% include('footer.tpl')
 	</body>
 
 </html>
+
+		
