@@ -48,7 +48,7 @@
       % else:
       % for i in range(0,len(d[d.keys()[0]])):
           <tr>
-            <td align="left">{{d["classid"][i]}}</td>
+            <td align="left"><a href="results/{{d["classid"][i]}}">{{d["classid"][i]}}</a></td>
             <td align="left">{{d["dept"][i]}}</td>
             <td align="left">{{d["coursenum"][i]}}</td>
             <td align="left">{{d["area"][i]}}</td>
