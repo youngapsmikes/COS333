@@ -36,7 +36,7 @@
 
 		<hr>
 		<br>
-		Click here to do <a href="/search">another class search</a>
+		Click here to do <a href="/search2">another class search</a>
 
 
 

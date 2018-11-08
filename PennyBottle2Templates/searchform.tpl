@@ -8,7 +8,7 @@
       <h1>Author Search</h1>
       <form action="searchresults" method="get">
          Please enter an author name:
-         <input type="text" name="author">
+         <input type="text" name="author" value = {{prevAuthor}}>
          <input type="submit" value="Go">
       </form>
       <br>
