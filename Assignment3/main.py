@@ -78,11 +78,15 @@ def results(classid):
         'd': d}
     return template('results.tpl', templateInfo)
 
+@error(404)
+def notFound(error):
+    return 'Not found'
+
 
 ## saving the search form results
 
 if __name__ == '__main__':
     if len(argv) != 2:
-        print 'Usage: ' + argv[0] + ' port'
+        print 'Usage: ' + './runserver' + ' port'
         exit(1)
     run(host='0.0.0.0', port=argv[1], debug=True)

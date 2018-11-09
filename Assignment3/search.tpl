@@ -32,8 +32,6 @@
       </table>
     </form>
     <hr>
-    <br> 
-    <br>
     <table>
       <tr>
         <td align="left"><b>ClassID</b></td>
