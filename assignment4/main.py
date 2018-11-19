@@ -42,10 +42,11 @@ def searchResults():
     title = preprocessKey(title)
 
     query = Query(dept = dept, coursenum = coursenum, area = area, title = title)
-    d = executeSearch(query)
 
-    print type(d["classid"][0])
-    print type(genrow(d["dept"][0]))
+    try:
+        d = executeSearch(query)
+    except Exception, e:
+        return '<tr><td align="center" colspan="5"> Server-side Error:' + str(e) + '</td></tr>'
 
     ret = ''
     for i in range(0, len(d[d.keys()[0]])):
@@ -59,7 +60,16 @@ def searchResults():
 
 @route('/results/<classid>')
 def results(classid):
-    d = executeSearchClass(classid)
+    if (classid == ''):
+        templateInfo = {
+        'errorMessage': "Missing classid"
+        }
+        return template('error.tpl', templateInfo)
+    try:
+        d = executeSearchClass(classid)
+    except Exception, e:
+        return template('error.tpl', {'errorMessage': "Server-side error:" + str(e)})
+    
     templateInfo = {
         'classid': classid,     
         'd': d}
@@ -67,7 +77,7 @@ def results(classid):
 
 @error(404)
 def notFound(error):
-    return 'Not found'
+    return template('error.tpl', {'errorMessage': "uh oh... page not found"})
 
 if __name__ == '__main__':
     if len(argv) != 2:
