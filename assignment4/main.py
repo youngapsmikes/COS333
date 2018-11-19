@@ -8,6 +8,12 @@ from searchClass import Search
 
 TEMPLATE_PATH.insert(0,'')
 
+def isInt(key):
+    try:
+        key = int(key)
+    except ValueError:
+        return False 
+    return True 
 # any additional error handling?
 def preprocessKey(key):
     if (key is None) or (key.strip() == ''):
@@ -65,15 +71,21 @@ def results(classid):
         'errorMessage': "Missing classid"
         }
         return template('error.tpl', templateInfo)
-    try:
-        d = executeSearchClass(classid)
-    except Exception, e:
-        return template('error.tpl', {'errorMessage': "Server-side error:" + str(e)})
-    
-    templateInfo = {
-        'classid': classid,     
-        'd': d}
-    return template('results.tpl', templateInfo)
+    elif (not isInt(classid)):
+        templateInfo = {
+            'errorMessage': "classid is not numeric"
+            }
+        return template('error.tpl', templateInfo)
+    else:
+        try:
+            d = executeSearchClass(classid)
+        except Exception, e:
+            return template('error.tpl', {'errorMessage': "Server-side error:" + str(e)})
+
+        templateInfo = {
+            'classid': classid,     
+            'd': d}
+        return template('results.tpl', templateInfo)
 
 @error(404)
 def notFound(error):
